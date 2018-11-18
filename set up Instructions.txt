@@ -1,0 +1,52 @@
+create a file "ssh" on the boot partition of SD Card to enable ssh 
+
+
+insert SD and boot the device.
+
+sudo raspi-config
+>go to interfacing options, I2C and turn ENABLE it.
+
+sudo apt-get install weavedconnectd
+
+sudo weavedinstaller
+	>select 1
+	>user name: denvikrnd@outlook.com
+	>passowrd: denvik@rnd1
+	>Device Name: FAxx
+	>select 1.Attach new service
+	>Select SSH on port 22
+	> Yes when ut asks to use same port
+	>name the service as FLSFAxx-SSH
+	>4.Exit
+
+sudo apt-get update
+
+sudo apt-get install python-pip
+
+	sudo pip install adafruit-ads1x15
+	sudo pip install pyserial
+	sudo pip install -U pymodbus
+
+sudo apt-get install wvdial
+
+	sudo nano /etc/wvdial.conf
+		copy paste these configs at the end of the file
+		
+			[Dialer 3gconnect]
+			Init1 = AT+CREG=2
+			Init2 = AT+CSQ
+			Init3 = AT+CREG?
+			Init4 = AT+QCFG="nwscanmode"
+			Init5 = AT+QCFG="band"
+			Init6 = AT+COPS?
+			Init7 = AT+CGREG=2
+			Init8 = AT+CGDCONT=1,"IP","WWW"
+			Stupid Mode = 1
+			Modem Type = Modem
+			ISDN = 0
+			Phone = *99#
+			Modem = /dev/ttyUSB3
+			Username = { }
+			Password = { }
+			Baud = 115200
+			
